@@ -1,0 +1,84 @@
+<mat-toolbar color="primary" class="mat-elevation-z8" >
+    <button (click)="drawer.toggle()" mat-icon-button>
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span>Demand Management System</span>
+    <span class="example-spacer"></span>
+      <!-- <button [matMenuTriggerFor]="lvl1master" mat-button>Inbox</button>-->
+  
+    <mat-menu #lvl1master="matMenu">
+        <button [matMenuTriggerFor]="company" mat-menu-item>Company</button>
+        <button [matMenuTriggerFor]="customer" mat-menu-item>Customer</button>
+        <button [matMenuTriggerFor]="product" mat-menu-item>Product</button>
+    </mat-menu>
+
+    <mat-menu #company="matMenu">
+        <button mat-menu-item>Term</button>
+        <button mat-menu-item>Tax</button>
+        <button mat-menu-item>Currency</button>
+    </mat-menu>
+    <mat-menu #customer="matMenu">
+        <button mat-menu-item>Type</button>
+        <button mat-menu-item>Tax</button>
+    </mat-menu>
+    <mat-menu #product="matMenu">
+        <button mat-menu-item>Category</button>
+        <button [matMenuTriggerFor]="variant" mat-menu-item>Variant</button>
+        <button mat-menu-item>UOM</button>
+    </mat-menu>
+
+    <mat-menu #variant="matMenu">
+        <button mat-menu-item>Color</button>
+        <button mat-menu-item>Size</button>
+    </mat-menu>
+    <div >
+    <button  *ngFor="let item of menuList" mat-button > {{item.name}}</button>
+    </div> 
+    <!-- <button routerLink="autocomplete" mat-button>Packaging</button>-->
+  
+    <button  (click)="logout()" mat-raised-button color="accent" *ngIf="isLoggedIn">LogOut</button>
+   
+  <!-- <a href="" mat-raised-button color="accent">Join Us</a>-->
+    <button (click)="badgevisibility()"  mat-icon-button>
+        <mat-icon matBadgeColor="accent" matBadge="15" [matBadgeHidden]="badgevisible" matBadgeSize="small">notifications</mat-icon>
+    </button>
+</mat-toolbar>
+<mat-drawer-container autosize>
+    <mat-drawer #drawer opened="true" mode="side" position="start">
+    <mat-nav-list >
+       <!-- <mat-nav-list>     
+            <mat-accordion> 
+          <mat-expansion-panel *ngFor="let navData of menuList">
+            <mat-expansion-panel-header>
+              <mat-list-item class="mg-custom-mat-list-item" href="#" >{{navData.name}}</mat-list-item>
+            </mat-expansion-panel-header>
+          <mat-list>
+              <a mat-list-item class="mg-custom-mat-list-item" routerLink="{{navData.name}}" *ngFor="let navData of menuList">{{navData.name}}</a>
+          </mat-list>
+          </mat-expansion-panel>  
+          </mat-accordion>          
+        </mat-nav-list> -->
+
+        <mat-list-item  *ngFor="let item of menuList" >
+           
+            <button mat-button ><mat-icon>{{item.icon}}</mat-icon> {{item.name}}</button> 
+   
+        </mat-list-item>
+       
+          <!-- <mat-list-item>
+            <button mat-button><mat-icon>settings</mat-icon> Settings</button>
+        </mat-list-item>
+        <mat-list-item>
+            <button mat-button><mat-icon>help</mat-icon> Help</button>
+        </mat-list-item>-->
+         <!--  <mat-list-item>
+            <button mat-button><mat-icon>analytics</mat-icon> analytics</button>
+        </mat-list-item>-->
+    </mat-nav-list>
+    </mat-drawer>
+    <mat-drawer-content>
+        <div style="text-align: center;min-height: 600px;">
+            <router-outlet></router-outlet>
+            </div>
+    </mat-drawer-content>
+</mat-drawer-container>
